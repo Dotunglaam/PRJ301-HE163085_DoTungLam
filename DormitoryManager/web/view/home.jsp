@@ -1,6 +1,6 @@
 <%-- 
-    Document   : login
-    Created on : Feb 6, 2023, 4:05:23 PM
+    Document   : home
+    Created on : Feb 9, 2023, 5:33:17 PM
     Author     : ADMIN
 --%>
 
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-       
+        <h1>Hello World!</h1>
     </body>
 </html>
