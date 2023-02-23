@@ -40,3 +40,6 @@ hr{
 #submmit:hover {
     font-size: 20px;
 }
+.error{
+    color: red;
+}

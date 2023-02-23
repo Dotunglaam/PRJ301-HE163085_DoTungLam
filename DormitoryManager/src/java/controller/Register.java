@@ -18,6 +18,7 @@ import modol.Account;
  *
  * @author ADMIN
  */
+
 public class Register extends HttpServlet {
    
     /** 
@@ -68,7 +69,7 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         String displayname = request.getParameter("displayname");
+        String displayname = request.getParameter("displayname");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
@@ -80,7 +81,7 @@ public class Register extends HttpServlet {
             AccountDAO db = new AccountDAO();
             Account account = db.checkAccountExist(username);
             if (account == null) {
-                db.createAccount(username, password, displayname);
+                db.createAccount(username, password, displayname); //here
                 response.sendRedirect("login");
             } // account already exist in DB
             else {

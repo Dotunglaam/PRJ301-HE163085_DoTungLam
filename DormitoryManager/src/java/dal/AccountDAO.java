@@ -1,6 +1,7 @@
 package dal;
 
 import context.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,34 +15,41 @@ import modol.Account;
  */
 public class AccountDAO extends DBContext {
 
-    public Account getAccount(String username, String password) {
+    Connection conn = null;
+    PreparedStatement stm = null;
+    ResultSet rs = null;
+
+    public Account getAccount(String user, String pass) {
+        Account account = null;
         try {
-            String sql = "SELECT username, password, displayname FROM Account\n"
-                    + "WHERE username = ? AND password = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, username);
-            stm.setString(2, password);
-            ResultSet rs = stm.executeQuery();
-
+            String sql = "SELECT username, password FROM Account\n"
+                    + "                     WHERE username = ?  AND password = ?";
+            //Step2: create obj PrepareStatement
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, user);
+            ps.setString(2, pass);
+            //Step 3: thuc thti truy van
+            ResultSet rs = ps.executeQuery();
+            //Step 4: xu ly kq tra  ve
             while (rs.next()) {
-                Account account = new Account();
-                account.setUsername(rs.getString("username"));
-                account.setDisplayname(rs.getString("displayname"));
-                account.setPassword(rs.getString("password"));
-                return account;
-            }
+                //lay du lieu tu rs gan cho cac bien cuc bo
 
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+                String username = rs.getString("username");
+                String Password = rs.getString("password");
+
+                account = new Account(username, Password);
+            }
+        } catch (SQLException e) {
         }
-        return null;
+
+        return account;
     }
 
     public Account checkAccountExist(String username) {
         try {
             String sql = "select * from Account\n"
                     + "where [username] = ?\n";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
@@ -68,7 +76,7 @@ public class AccountDAO extends DBContext {
                     + "           ,?\n"
                     + "           ,?)";
 
-            PreparedStatement stm = connection.prepareStatement(sql);
+            PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
             stm.setString(3, displayname);
@@ -78,4 +86,9 @@ public class AccountDAO extends DBContext {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+//    public static void main(String[] args) {
+//        System.out.println(new AccountDAO().getAccount("lamdt", "123"));
+//    }
+
 }

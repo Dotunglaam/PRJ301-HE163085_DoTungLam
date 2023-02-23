@@ -9,9 +9,17 @@ package modol;
  * @author ADMIN
  */
 public class Account {
-     private String username;
+    private String username;
     private String password;
-    private String displayname;
+//    private String displayname;
+
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public Account() {
+    }
 
     public String getUsername() {
         return username;
@@ -29,11 +37,18 @@ public class Account {
         this.password = password;
     }
 
-    public String getDisplayname() {
-        return displayname;
-    }
+//    public String getDisplayname() {
+//        return displayname;
+//    }
+//
+//    public void setDisplayname(String displayname) {
+//        this.displayname = displayname;
+//    }
 
-    public void setDisplayname(String displayname) {
-        this.displayname = displayname;
+    @Override
+    public String toString() {
+        return "Account{" + "username=" + username + ", password=" + password + '}';
     }
+    
+    
 }

@@ -4,13 +4,14 @@
     Author     : ADMIN
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-        <link href="../css/login.css" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="/css/login.css"/>" rel="stylesheet" type="text/css"/>
     </head>
     <body>
 
@@ -23,6 +24,7 @@
                     <form action="login" method="POST">
                         <table class="table" border="0">
                             <tbody>
+                            <div class="error">${requestScope.error}</div>
                                 <tr>
                                     <td>Username</td>
                                     <td><input type="text" name="user"/></td>
@@ -31,16 +33,7 @@
                                     <td>Password</td>
                                     <td><input type="password" name="pass"/></td>
                                 </tr>
-                                <tr>
-                                    <td>Campus Code</td>
-                                    <td >
-                                        <select  <input type="text" name="name">
-                                            <option>Hòa Lạc     </option>
-                                            <option>Cần Thơ     </option>
-                                            <option>Hồ Chí Minh </option>
-                                        </select>
-                                    </td>
-                                </tr>
+                             
                                 <tr>
                                     <td></td>
                                     <td><input id="submmit" type="submit" value="Login" /></td>                                  
@@ -48,7 +41,7 @@
                                 <tr>
                                     <td></td>
                                     <td><a id="register" href="register" >Tạo tài khoản mới</a> </td>
-                                    
+
                                 </tr>
                             </tbody>
                         </table>

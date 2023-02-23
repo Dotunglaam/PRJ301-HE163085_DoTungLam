@@ -21,13 +21,9 @@
             30
         </session-timeout>
     </session-config>
-    <!--    <welcome-file-list>
+    <welcome-file-list>
         <welcome-file>
-            login.jsp
+            view/login.jsp
         </welcome-file>
-    </welcome-file-list>-->
-    <!--    <welcome-file-list>
-    <welcome-file>faces/index.html</welcome-file>
-    <welcome-file>faces/index.xhtm</welcome-file>
-    </welcome-file-list>-->
+    </welcome-file-list>
 </web-app>
