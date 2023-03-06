@@ -21,7 +21,7 @@ h1 {
     margin-top: 0px;
     width: 300px;
     height: 30px;
-    color: aqua;
+    color: red;
     padding-top: 100px;
     padding-left: 40px;
     margin-right: auto;
@@ -47,7 +47,7 @@ input {
 }
 p {
     font-size: 20px;
-    color: White;
+    color: red; 
 }
 #register {
     width: 200px;

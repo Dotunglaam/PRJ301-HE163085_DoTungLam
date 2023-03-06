@@ -7,22 +7,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modol.Account;
+import modol.Users;
 
 /**
  *
  * @author ADMIN
  */
-public class AccountDAO extends DBContext {
+public class UsersDAO extends DBContext {
 
     Connection conn = null;
     PreparedStatement stm = null;
     ResultSet rs = null;
 
-    public Account getAccount(String user, String pass) {
-        Account account = null;
+    public Users getUsers(String user, String pass) {
+        Users account = null;
         try {
-            String sql = "SELECT username, password FROM Account\n"
+            String sql = "SELECT * FROM Users\n"
                     + "                     WHERE username = ?  AND password = ?";
             //Step2: create obj PrepareStatement
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -33,11 +33,14 @@ public class AccountDAO extends DBContext {
             //Step 4: xu ly kq tra  ve
             while (rs.next()) {
                 //lay du lieu tu rs gan cho cac bien cuc bo
-
-                String username = rs.getString("username");
-                String Password = rs.getString("password");
-
-                account = new Account(username, Password);
+                account = new Users(rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getBoolean(6),
+                        rs.getDate(7),
+                        rs.getString(8));
             }
         } catch (SQLException e) {
         }
@@ -45,50 +48,61 @@ public class AccountDAO extends DBContext {
         return account;
     }
 
-    public Account checkAccountExist(String username) {
+    public Users checkAccountExist(String username) {
         try {
-            String sql = "select * from Account\n"
+            String sql = "select * from Users\n"
                     + "where [username] = ?\n";
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                Account account = new Account();
+                Users account = new Users();
                 account.setUsername(rs.getString("username"));
                 account.setPassword(rs.getString("password"));
                 return account;
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public void createAccount(String username, String password, String displayname) {
+    public void createAccount(Users u) {
         try {
-            String sql = "INSERT INTO [Account]\n"
+            String sql = "INSERT INTO  [dbo].[Users]\n"
                     + "           ([username]\n"
                     + "           ,[password]\n"
-                    + "           ,[displayname])\n"
+                    + "           ,[full_name]\n"
+                    + "           ,[role_id]\n"
+                    + "           ,[gender]\n"
+                    + "           ,[dob]\n" 
+                    + "           ,[phone]\n)"
                     + "     VALUES\n"
                     + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,2\n"
+                    + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?)";
 
             PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setString(1, username);
-            stm.setString(2, password);
-            stm.setString(3, displayname);
+            stm.setString(1, u.getUsername());
+            stm.setString(2, u.getPassword());
+            stm.setString(3, u.getFull_name());
+            stm.setInt(4, u.getRole_id());
+            stm.setBoolean(5, u.isGender());
+            stm.setDate(6, u.getDob());
+            stm.setString(7, u.getPhone());
             stm.executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
 //    public static void main(String[] args) {
-//        System.out.println(new AccountDAO().getAccount("lamdt", "123"));
+//        System.out.println(new UsersDAO().getAccount("lamdt", "123"));
 //    }
-
 }
