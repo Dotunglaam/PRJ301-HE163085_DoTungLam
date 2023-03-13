@@ -10,27 +10,53 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Menu</title>
+        <link href="css/menu.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <ul>
-            <li>Dormitory </li>
-            <c:if test="${sessionScope.User != null}">
+        <div class="header">   
+            <hr/>
+            <ul class="header_ul"> 
+                <li>Dormitory </li>
+                    <c:if test="${sessionScope.User.role_id == 2}">
+                    <li>
+                        <a href="home">Hello User:  ${sessionScope.User.full_name}</a>
+                    </li>
+                </c:if>     
+                <c:if test="${sessionScope.User.role_id == 1}">
+                    <li>
+                        <a href="home">Hello Admin:  ${sessionScope.User.full_name}</a>
+                    </li>
+                </c:if>    
+                <c:if test="${sessionScope.User != null}">
+                    <li>
+                        <a href="logout">Logout</a>
+                    </li>
+                </c:if>  
+            </ul>
+            <hr/>
+            <div class="menu">
                 <li>
-                    <a href="#">Hello ${sessionScope.User.full_name}</a>
+                    <a href="home">Home</a>
                 </li>
-                <li>
-                    <a href="logout">Logout</a>
-                </li>
-            </c:if>
-            <c:if test="${sessionScope.User != null}">
-                <li>
-                    <a href="#">Hello ${sessionScope.User.full_name}</a>
-                </li>
-                <li>
-                    <a href="logout">Logout</a>
-                </li>
-            </c:if>
-        </ul>
+                <c:if test="${sessionScope.User.role_id == 1}">
+                    <li>
+                        <a href="homea">Home</a>
+                    </li>
+                    <li>
+                        <a href="">Danh Sách sinh viên</a>
+                    </li>
+                    <li>
+                        <a href="">Danh sách phòng</a>
+                    </li> 
+                    <li>
+                        <a href="payment">Hóa Đơn</a>
+                    </li>
+                    <li>
+                        <a href="dorm">Danh sách Dormitories</a>
+                    </li>
+                </c:if>    
+            </div>
+        </div>
     </body>
 </html>

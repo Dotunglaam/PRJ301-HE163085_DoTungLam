@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/home.jsp</url-pattern>
+        <url-pattern>/menu.jsp</url-pattern>
+        <!--        <url-pattern>/home.jsp</url-pattern>
+        <url-pattern>/home.jsp</url-pattern>-->
+    </filter-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>controller.Users.Login</servlet-class>
@@ -16,6 +28,42 @@
         <servlet-name>Home</servlet-name>
         <servlet-class>controller.Users.Home</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeAdmin</servlet-name>
+        <servlet-class>controller.Admin.HomeAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Dorm</servlet-name>
+        <servlet-class>controller.Admin.Dorm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DormUpdate</servlet-name>
+        <servlet-class>controller.Admin.DormUpdate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DormCreate</servlet-name>
+        <servlet-class>controller.Admin.DormCreate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DormDelete</servlet-name>
+        <servlet-class>controller.Admin.DormDelete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentCreate</servlet-name>
+        <servlet-class>controller.Admin.PaymentCreate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Payment</servlet-name>
+        <servlet-class>controller.Admin.Payment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentDelete</servlet-name>
+        <servlet-class>controller.Admin.PaymentDelete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentUpdate</servlet-name>
+        <servlet-class>controller.Admin.PaymentUpdate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -31,6 +79,42 @@
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeAdmin</servlet-name>
+        <url-pattern>/homea</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Dorm</servlet-name>
+        <url-pattern>/dorm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DormUpdate</servlet-name>
+        <url-pattern>/dormupdate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DormCreate</servlet-name>
+        <url-pattern>/dormcreate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DormDelete</servlet-name>
+        <url-pattern>/dormdelete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentCreate</servlet-name>
+        <url-pattern>/paymentcreate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Payment</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentDelete</servlet-name>
+        <url-pattern>/paymentdelete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentUpdate</servlet-name>
+        <url-pattern>/paymentupdate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

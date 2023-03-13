@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-        <link href="<c:url value="/css/login.css"/>" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="css/login.css"/>" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         

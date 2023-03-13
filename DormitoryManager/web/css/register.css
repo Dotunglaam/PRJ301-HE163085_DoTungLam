@@ -38,7 +38,7 @@ h1 {
     border: 1px;
     outline: none;
 }
-input {
+.textbox {
     width: 200px;
     height: 40px;
     margin-bottom: 10px;
@@ -70,5 +70,11 @@ p {
     text-decoration: none;  
 }
 #login:hover {
-    font-size: 20px;
+    display: inline-block;
 }
+.gender{
+    display: flex;
+}
+/*.form{
+    width: 100px;
+}*/

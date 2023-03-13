@@ -1,7 +1,6 @@
 package dal;
 
 import context.DBContext;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,9 +14,7 @@ import modol.Users;
  */
 public class UsersDAO extends DBContext {
 
-    Connection conn = null;
-    PreparedStatement stm = null;
-    ResultSet rs = null;
+
 
     public Users getUsers(String user, String pass) {
         Users account = null;
@@ -52,7 +49,7 @@ public class UsersDAO extends DBContext {
         try {
             String sql = "select * from Users\n"
                     + "where [username] = ?\n";
-            PreparedStatement stm = conn.prepareStatement(sql);
+            PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
@@ -69,7 +66,7 @@ public class UsersDAO extends DBContext {
     }
 
     public void createAccount(Users u) {
-        try {
+        try { 
             String sql = "INSERT INTO  [dbo].[Users]\n"
                     + "           ([username]\n"
                     + "           ,[password]\n"
@@ -78,16 +75,16 @@ public class UsersDAO extends DBContext {
                     + "           ,[gender]\n"
                     + "           ,[dob]\n" 
                     + "           ,[phone]\n)"
-                    + "     VALUES\n"
+                    + "     VALUES\n"  
                     + "           (?\n"
                     + "           ,?\n"
                     + "           ,?\n"
-                    + "           ,2\n"
+                    + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?)";
 
-            PreparedStatement stm = conn.prepareStatement(sql);
+            PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, u.getUsername());
             stm.setString(2, u.getPassword());
             stm.setString(3, u.getFull_name());

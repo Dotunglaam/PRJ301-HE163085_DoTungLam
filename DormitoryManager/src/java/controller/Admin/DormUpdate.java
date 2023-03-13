@@ -3,20 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.Users;
+package controller.Admin;
 
+import dal.DormDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modol.Dormitories;
 
 /**
  *
  * @author ADMIN
  */
-public class Home extends HttpServlet {
+public class DormUpdate extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +35,10 @@ public class Home extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Home</title>");  
+            out.println("<title>Servlet DormUpdate</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Home at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DormUpdate at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,7 +55,12 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("view/home.jsp").forward(request, response);
+        String id = request.getParameter("did");
+        DormDAO d = new DormDAO();
+        Dormitories dorm = d.get(id);
+        request.setAttribute("dorm", dorm);
+        
+        request.getRequestDispatcher("view/updateDorm.jsp").forward(request, response);
     } 
 
     /** 
@@ -66,7 +73,16 @@ public class Home extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        
+        Dormitories dorm = new Dormitories();
+        dorm.setDormitory_id(Integer.parseInt(id));
+        dorm.setName(name);
+        DormDAO d = new DormDAO();        
+        d.update(dorm);
+        
+        response.sendRedirect("dorm");
     }
 
     /** 

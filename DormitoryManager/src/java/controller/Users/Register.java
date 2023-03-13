@@ -88,15 +88,18 @@ public class Register extends HttpServlet {
                 Users u = new Users();
                 u.setUsername(username);
                 u.setPassword(password);
-                u.setGender(true);          // need here can find infor
-                u.setDob(Date.valueOf(dob));
                 u.setFull_name(full_name);
+                u.setGender(gender.equals("male") || gender.equals("female"));          
+                u.setDob(Date.valueOf(dob));
                 u.setPhone(phone);
-                db.createAccount(u);
+                u.setRole_id(2);
+                db.createAccount(u);  
+                
                 response.sendRedirect("login");
+//                request.getRequestDispatcher("view/login.jsp").forward(request, response);
+                
             } // account already exist in DB
             else {
-//                request.getRequestDispatcher("view/register.jsp").forward(request, response);
                 response.sendRedirect("register");
             }
 
