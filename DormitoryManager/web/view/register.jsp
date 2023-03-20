@@ -14,16 +14,16 @@
 
             <div class="register">
                 <form class="form" action="register" method="POST">
-                    <input class="textbox" type="text" placeholder="Tên" name="displayname" /> <br/>
-                    <input class="textbox" type="text" placeholder="Tài Khoản" name="username" /> <br/>
-                    <input class="textbox" type="password" placeholder="Mật Khẩu" name="password"/> <br/>
+                    <input class="textbox" type="text" placeholder="Tên" name="displayname" required=""/> <br/>
+                    <input class="textbox" type="text" placeholder="Tài Khoản" name="username" required=""/> <br/>
+                    <input class="textbox" type="password" placeholder="Mật Khẩu" name="password" required=""/> <br/>
                     <input class="textbox" type="password" placeholder="Nhập lại mật khẩu" name="repassword" required><br>
                     <div class="gender">
                         <input  type="radio" name="gender" value="female"/>Female
                         <input  type="radio" name="gender" checked="checked" value="male"/>Male <br/>
                     </div>
-                    <input class="textbox" type="date" name="dob"/> <br/>
-                    <input class="textbox" type="number" placeholder="SDT" name="phone" /> <br/>
+                    <input class="textbox" type="date" name="dob" required=""/> <br/>
+                    <input class="textbox" type="number" placeholder="SDT" name="phone" required=""/> <br/>
                     <p >${registerFailed}</p>
                     <input id="register" type="submit" value="Đăng Ký" /><br>
                     <a id="login" href="login">Bạn đã có tài khoản?</a><br>

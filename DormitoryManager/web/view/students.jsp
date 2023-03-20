@@ -51,7 +51,7 @@
                     <td>${s.getPhone()}</td>
                     <td>   
                         <a href="studentupdate?sid=${s.user_id}">update</a>
-                        <a href="#" onclick="studentdelete(${p.user_id})">delete</a>
+                        <a href="#" onclick="studentdelete(${s.user_id})">delete</a>
                     </td>
                 </tr>
             </c:forEach>
