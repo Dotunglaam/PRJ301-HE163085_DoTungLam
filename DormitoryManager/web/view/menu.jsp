@@ -25,7 +25,7 @@
                 </c:if>     
                 <c:if test="${sessionScope.User.role_id == 1}">
                     <li>
-                        <a href="home">Hello Admin:  ${sessionScope.User.full_name}</a>
+                        <a href="homea">Hello Admin:  ${sessionScope.User.full_name}</a>
                     </li>
                 </c:if>    
                 <c:if test="${sessionScope.User != null}">
@@ -36,18 +36,19 @@
             </ul>
             <hr/>
             <div class="menu">
-                <li>
-                    <a href="home">Home</a>
-                </li>
+                <c:if test="${sessionScope.User.role_id == 2}">
+                    <li>
+                        <a href="home">Home</a>
+                </c:if>    
                 <c:if test="${sessionScope.User.role_id == 1}">
                     <li>
                         <a href="homea">Home</a>
                     </li>
                     <li>
-                        <a href="">Danh Sách sinh viên</a>
+                        <a href="student">Danh Sách sinh viên</a>
                     </li>
                     <li>
-                        <a href="">Danh sách phòng</a>
+                        <a href="room">Danh sách phòng</a>
                     </li> 
                     <li>
                         <a href="payment">Hóa Đơn</a>

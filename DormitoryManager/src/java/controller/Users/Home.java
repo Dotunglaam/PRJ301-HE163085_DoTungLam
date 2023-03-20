@@ -5,12 +5,17 @@
 
 package controller.Users;
 
+import dal.InforDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import modol.Informations;
+import modol.Users;
 
 /**
  *
@@ -53,6 +58,11 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Users u = (Users)session.getAttribute("User");
+        InforDAO i = new InforDAO();
+        Informations infor = i.getFollowUserID(u.getUser_id());
+        request.setAttribute("infors", infor);
         request.getRequestDispatcher("view/home.jsp").forward(request, response);
     } 
 

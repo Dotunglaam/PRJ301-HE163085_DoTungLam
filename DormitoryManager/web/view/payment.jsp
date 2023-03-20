@@ -12,7 +12,7 @@
         <title>Payment</title>
         <link href="css/payments.css" rel="stylesheet" type="text/css"/>
         <script>
-            function deletepayment(payment_id)
+            function paymentdelete(payment_id)
             {
                 var a = confirm("are you sure?");
                 if (a)
@@ -31,8 +31,6 @@
                         <th>User_id</th>
                         <th>Room_id</th>
                         <th>Amount</th>
-                        <th>Price</th>
-                        <th>Full_name</th>
                         <th>Payment_date</th>
                         <th>Status</th>
                     </tr>
@@ -44,12 +42,10 @@
                         <td>${p.users.user_id}</td>
                         <td>${p.rooms.room_id}</td>
                         <td>${p.amount}</td>
-                        <td>${p.rooms.price}</td>
-                        <td>${p.users.full_name}</td>
                         <td>${p.payment_date}</td>
                         <td>${p.status}</td>
                         <td>   
-                            <a href="paymentupdate?did=${p.payment_id}">update</a>
+                            <a href="paymentupdate?pid=${p.payment_id}">update</a>
                             <a href="#" onclick="paymentdelete(${p.payment_id})">delete</a>
                         </td>
                     </tr>

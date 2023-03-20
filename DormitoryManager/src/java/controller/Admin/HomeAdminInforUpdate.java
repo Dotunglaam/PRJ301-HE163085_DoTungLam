@@ -4,20 +4,23 @@
  */
 package controller.Admin;
 
-import dal.DormDAO;
+import dal.InforDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import modol.Dormitories;
+import java.sql.Date;
+import java.time.LocalDate;
+import modol.Informations;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
  * @author ADMIN
  */
-public class DormCreate extends HttpServlet {
+public class HomeAdminInforUpdate extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +39,10 @@ public class DormCreate extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DormCreate</title>");
+            out.println("<title>Servlet HomeAdminInforUpdate</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DormCreate at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet HomeAdminInforUpdate at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,7 +60,11 @@ public class DormCreate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("view/dormCreate.jsp").forward(request, response);
+        String id = request.getParameter("inid");
+        InforDAO i = new InforDAO();
+        Informations in = i.get(Integer.parseInt(id));
+        request.setAttribute("in", in);
+        request.getRequestDispatcher("view/homeAInforUpdate.jsp").forward(request, response);
     }
 
     /**
@@ -71,19 +78,36 @@ public class DormCreate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        DormDAO d = new DormDAO();
-        Dormitories dorm = d.checkDormExist(name);
-        if (dorm != null) {
-            request.setAttribute("error", "It exist !");
-            request.getRequestDispatcher("view/dormCreate.jsp").forward(request, response);
-        }else{
-            Dormitories dormitories = new Dormitories();
-            dormitories.setName(name);
-            d.insert(dormitories);
-            response.sendRedirect("dorm");
-        }
 
+        String id = request.getParameter("id");
+        String rrdString = request.getParameter("rrd");
+        String cdString = request.getParameter("cd");
+
+        // Chuyển đổi chuỗi ngày thành đối tượng LocalDate
+        LocalDate rrd = LocalDate.parse(rrdString);
+        LocalDate cd = LocalDate.parse(cdString);
+
+        // Tính số tháng giữa hai ngày
+        long monthsBetween = ChronoUnit.MONTHS.between(rrd, cd);
+
+        //Kiểm tra nếu khoảng thời gian
+        if (monthsBetween < 1) {
+            // Gửi thông báo lỗi tới trang web
+            request.setAttribute("error", "Phải 1 tg mới đc out");
+            InforDAO i = new InforDAO();
+            Informations in = i.get(Integer.parseInt(id));
+            request.setAttribute("in", in);
+            request.getRequestDispatcher("view/homeAInforUpdate.jsp").forward(request, response);
+        } else {
+            // Thực hiện xử lý lưu thông tin đăng ký phòng vào cơ sở dữ liệu
+            InforDAO i = new InforDAO();
+            Informations in = i.get(Integer.parseInt(id));
+
+            in.setRoom_registration_date(Date.valueOf(rrd));
+            in.setCancellation_date(Date.valueOf(cd));
+            i.update(in);
+            response.sendRedirect("homea");
+        }
     }
 
     /**

@@ -5,12 +5,17 @@
 
 package controller.Admin;
 
+import dal.PaymentDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import modol.Payments;
+import modol.Rooms;
+import modol.Users;
 
 /**
  *
@@ -53,7 +58,7 @@ public class PaymentCreate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("view/paymentCreate.jsp").forward(request, response);
     } 
 
     /** 
@@ -66,7 +71,25 @@ public class PaymentCreate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String user_id = request.getParameter("user_id");
+        String room_id = request.getParameter("room_id");
+        String amount = request.getParameter("amount");
+        String date = request.getParameter("date");
+        String status = request.getParameter("status");
+        PaymentDAO p = new PaymentDAO();
+            
+            Payments pay = new Payments();
+            Users u = new Users();
+            u.setUser_id(Integer.parseInt(user_id));
+            pay.setUsers(u);
+            Rooms r = new Rooms();
+            r.setRoom_id(Integer.parseInt(room_id));
+            pay.setRooms(r);
+            pay.setAmount(Float.parseFloat(amount));
+            pay.setPayment_date(Date.valueOf(date));
+            pay.setStatus(status);
+            p.insert(pay);
+            response.sendRedirect("payment");
     }
 
     /** 
@@ -77,5 +100,5 @@ public class PaymentCreate extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }

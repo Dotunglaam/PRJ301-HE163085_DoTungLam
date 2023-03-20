@@ -4,20 +4,20 @@
  */
 package controller.Admin;
 
-import dal.DormDAO;
+import dal.UsersDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import modol.Dormitories;
+import modol.Users;
 
 /**
  *
  * @author ADMIN
  */
-public class DormCreate extends HttpServlet {
+public class StudentUpdate extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +36,10 @@ public class DormCreate extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DormCreate</title>");
+            out.println("<title>Servlet StudentUpdate</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DormCreate at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet StudentUpdate at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,7 +57,12 @@ public class DormCreate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("view/dormCreate.jsp").forward(request, response);
+        String id = request.getParameter("sid");
+        UsersDAO u = new UsersDAO();
+        Users user = u.get(Integer.parseInt(id));
+        request.setAttribute("user", user);
+        request.setAttribute("sid", id);
+        request.getRequestDispatcher("view/studentsUpdate.jsp").forward(request, response);
     }
 
     /**
@@ -71,17 +76,14 @@ public class DormCreate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        DormDAO d = new DormDAO();
-        Dormitories dorm = d.checkDormExist(name);
-        if (dorm != null) {
-            request.setAttribute("error", "It exist !");
-            request.getRequestDispatcher("view/dormCreate.jsp").forward(request, response);
-        }else{
-            Dormitories dormitories = new Dormitories();
-            dormitories.setName(name);
-            d.insert(dormitories);
-            response.sendRedirect("dorm");
+        String sid = request.getParameter("sid");
+        String rid = request.getParameter("role_id");
+        UsersDAO u = new UsersDAO();
+        Users user = u.get(Integer.parseInt(sid));
+        if (user != null) {
+            user.setRole_id(Integer.parseInt(rid));
+            u.update(user);
+            response.sendRedirect(request.getContextPath() + "/student");
         }
 
     }

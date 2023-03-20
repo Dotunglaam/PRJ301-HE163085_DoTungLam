@@ -5,12 +5,14 @@
 
 package controller.Admin;
 
+import dal.PaymentDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modol.Payments;
 
 /**
  *
@@ -53,7 +55,10 @@ public class PaymentDelete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String id = request.getParameter("pid");
+        PaymentDAO p = new PaymentDAO();
+        p.delete(id);
+        response.sendRedirect("payment");
     } 
 
     /** 

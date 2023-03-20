@@ -16,10 +16,19 @@ public class Informations {
     private Users users;
     private Rooms rooms;
     private Payments payments;
-    private Date Room_registration_date;
-    private Date Cancellation_date;
+    private Date room_registration_date;
+    private Date cancellation_date;
 
     public Informations() {
+    }
+
+    public Informations(int in_id, Users users, Rooms rooms, Payments payments, Date room_registration_date, Date cancellation_date) {
+        this.in_id = in_id;
+        this.users = users;
+        this.rooms = rooms;
+        this.payments = payments;
+        this.room_registration_date = room_registration_date;
+        this.cancellation_date = cancellation_date;
     }
 
     public int getIn_id() {
@@ -55,24 +64,25 @@ public class Informations {
     }
 
     public Date getRoom_registration_date() {
-        return Room_registration_date;
+        return room_registration_date;
     }
 
-    public void setRoom_registration_date(Date Room_registration_date) {
-        this.Room_registration_date = Room_registration_date;
+    public void setRoom_registration_date(Date room_registration_date) {
+        this.room_registration_date = room_registration_date;
     }
 
     public Date getCancellation_date() {
-        return Cancellation_date;
+        return cancellation_date;
     }
 
-    public void setCancellation_date(Date Cancellation_date) {
-        this.Cancellation_date = Cancellation_date;
+    public void setCancellation_date(Date cancellation_date) {
+        this.cancellation_date = cancellation_date;
     }
 
     @Override
     public String toString() {
-        return "Informations{" + "in_id=" + in_id + ", users=" + users + ", rooms=" + rooms + ", payments=" + payments + ", Room_registration_date=" + Room_registration_date + ", Cancellation_date=" + Cancellation_date + '}';
+        return "Informations{" + "in_id=" + in_id + ", users=" + users + ", rooms=" + rooms + ", payments=" + payments + ", room_registration_date=" + room_registration_date + ", cancellation_date=" + cancellation_date + '}';
     }
+    
     
 }

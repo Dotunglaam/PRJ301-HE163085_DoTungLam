@@ -5,12 +5,15 @@
 
 package controller.Admin;
 
+import dal.InforDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import modol.Informations;
 
 /**
  *
@@ -53,6 +56,9 @@ public class HomeAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        InforDAO i = new InforDAO();
+        ArrayList<Informations> infor = i.getAllInfor();
+        request.setAttribute("infor", infor);
         request.getRequestDispatcher("view/homeAdmin.jsp").forward(request, response);
     } 
 

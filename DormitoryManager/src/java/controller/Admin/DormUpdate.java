@@ -60,7 +60,7 @@ public class DormUpdate extends HttpServlet {
         Dormitories dorm = d.get(id);
         request.setAttribute("dorm", dorm);
         
-        request.getRequestDispatcher("view/updateDorm.jsp").forward(request, response);
+        request.getRequestDispatcher("view/dormUpdate.jsp").forward(request, response);
     } 
 
     /** 

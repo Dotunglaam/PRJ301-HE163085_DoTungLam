@@ -74,7 +74,6 @@ p {
 }
 .gender{
     display: flex;
+    width: 220px;
+    height: 30px;
 }
-/*.form{
-    width: 100px;
-}*/

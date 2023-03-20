@@ -106,9 +106,11 @@ public class Login extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("User", a);
                 if(a.getRole_id() == 1){
-                    request.getRequestDispatcher("view/homeAdmin.jsp").forward(request, response);
+//                    request.getRequestDispatcher("view/homeAdmin.jsp").forward(request, response);
+                      response.sendRedirect("homea");
                 }else{
-                    request.getRequestDispatcher("view/home.jsp").forward(request, response);
+//                    request.getRequestDispatcher("view/home.jsp").forward(request, response);
+                        response.sendRedirect("home");
                 }
                 
             }
