@@ -184,7 +184,65 @@ public class InforDAO extends DBContext {
         }
         return null;
     }
+    public ArrayList<Informations> search(String txt) {
+        ArrayList<Informations> infor = new ArrayList<>();
+        try {
+            String sql = "select * from Informations i join Rooms r on i.room_id =r.room_id \n" +
+"							join Users u  on i.user_id = u.user_id \n" +
+"							join Payments p on i.payment_id = p.payment_id \n" +
+"							where u.full_name like ? or r.name like ?";
+            //Step2: create obj PrepareStatement
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1,"%" + txt + "%");
+            ps.setString(2,"%" + txt + "%");
+            ResultSet rs = ps.executeQuery();
+            //Step 4: xu ly kq tra  ve
+            while (rs.next()) {
+                //lay du lieu tu rs gan cho cac bien cuc bo
+                Informations in = new Informations();
+                in.setIn_id(rs.getInt("in_id"));
 
+                Users u = new Users();
+                u.setUser_id(rs.getInt("user_id"));
+                u.setFull_name(rs.getString("full_name"));
+                u.setUsername(rs.getString("username"));
+                u.setPassword(rs.getString("password"));
+                u.setRole_id(rs.getInt("role_id"));
+                u.setGender(rs.getBoolean("gender"));
+                u.setDob(rs.getDate("dob"));
+                u.setPhone(rs.getString("phone"));
+                in.setUsers(u);
+
+                Rooms r = new Rooms();
+                r.setRoom_id(rs.getInt("room_id"));
+                r.setName(rs.getString("name"));
+                r.setCurrent_people(rs.getInt("current_people"));
+                r.setPrice(rs.getFloat("price"));
+                Dormitories d = new Dormitories();
+                d.setDormitory_id(rs.getInt("dormitory_id"));
+                d.setName(rs.getString("name"));
+                r.setDormitories(d);
+                r.setRoom_type(rs.getInt("room_type"));
+                r.setFloor(rs.getInt("floor"));
+                r.setStatus(rs.getString("status"));
+                in.setRooms(r);
+
+                Payments p = new Payments();
+                p.setPayment_id(rs.getInt("payment_id"));
+                p.setUsers(u);
+                p.setRooms(r);
+                p.setAmount(rs.getFloat("amount"));
+                p.setPayment_date(rs.getDate("payment_date"));
+                p.setStatus(rs.getString("status"));
+                in.setPayments(p);
+                in.setRoom_registration_date(rs.getDate("room_registration_date"));
+                in.setCancellation_date(rs.getDate("cancellation_date"));
+                infor.add(in);
+            }
+        } catch (SQLException e) {
+        }
+        return infor;
+    }
     public static void main(String[] args) {
         System.out.println(new InforDAO().getFollowUserID(3));
     }

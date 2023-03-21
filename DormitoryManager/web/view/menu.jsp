@@ -18,16 +18,25 @@
             <hr/>
             <ul class="header_ul"> 
                 <li>Dormitory </li>
-                    <c:if test="${sessionScope.User.role_id == 2}">
+                <c:if test="${sessionScope.User.role_id == 2}">
                     <li>
                         <a href="home">Hello User:  ${sessionScope.User.full_name}</a>
                     </li>
-                </c:if>     
+                </c:if> 
+                    
                 <c:if test="${sessionScope.User.role_id == 1}">
                     <li>
                         <a href="homea">Hello Admin:  ${sessionScope.User.full_name}</a>
                     </li>
-                </c:if>    
+                </c:if>
+                
+                <c:if test="${sessionScope.User.role_id == 1}">    
+                <form action="search">
+                    <input type="text" name="txt" placeholder="Search" />
+                    <input type="submit" value="Search">
+                </form>
+                </c:if>
+                    
                 <c:if test="${sessionScope.User != null}">
                     <li>
                         <a href="logout">Logout</a>
