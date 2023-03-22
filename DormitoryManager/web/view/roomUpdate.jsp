@@ -11,6 +11,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link href="css/updateRoom.css" rel="stylesheet" type="text/css"/>
+        <style>
+            .error{
+                color: red;
+
+        </style>
     </head>
     <body>
         <form action="roomupdate" method="POST">
@@ -18,7 +23,7 @@
                 <tbody>
                     <tr>
                         <td>Room_id: </td>
-                        <td><input type="text" name="room_id" value="${room.getRoom_id()}"/></td>
+                        <td><input type="text"readonly name="room_id" value="${room.getRoom_id()}"/></td>
                     </tr>
                     <tr>
                         <td>Name: </td>
@@ -53,7 +58,10 @@
                         <td><input type="submit" value="Create"></td>
                     </tr>
                 </tbody>
-            </table>
+            </table></br>
+                    <div class="error">
+                        ${error}
+                    </div>
             <br/>
 
         </form>

@@ -46,6 +46,7 @@
                             <td>${infors.rooms.name}</td>
                             <td>${infors.payments.amount}</td>
                             <td>${infors.payments.payment_date}</td>
+                            <td><a href="update?sid=${infors.users.user_id}">update</a></td>
                             
                         </tr>
                     

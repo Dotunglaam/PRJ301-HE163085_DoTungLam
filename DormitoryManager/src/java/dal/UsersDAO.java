@@ -15,6 +15,15 @@ import modol.Users;
  */
 public class UsersDAO extends DBContext {
 
+    public ArrayList<Users> getListByPage(ArrayList<Users> list,
+            int start, int end) {
+        ArrayList<Users> arr = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            arr.add(list.get(i));
+        }
+        return arr;
+    }
+
     public Users getUsers(String user, String pass) {
         Users account = null;
         try {
@@ -159,6 +168,38 @@ public class UsersDAO extends DBContext {
         }
     }
 
+    public void updateUser(Users user) {
+        PreparedStatement stm = null;
+        try {
+            String sql = "UPDATE [dbo].[Users]\n"
+                    + "   SET [full_name] = ?\n"
+                    + "      ,[gender] = ?\n"
+                    + "      ,[dob] = ?\n"
+                    + "      ,[phone] = ? \n"
+                    + " WHERE user_id = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, user.getFull_name());
+            stm.setBoolean(2, user.isGender());
+            stm.setDate(3, user.getDob());
+            stm.setString(4, user.getPhone());
+            stm.setInt(5, user.getUser_id());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public void delete(String id) {
         PreparedStatement stm = null;
         try {
@@ -170,6 +211,7 @@ public class UsersDAO extends DBContext {
             Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public Users get(int id) {
         try {
             String sql = "SELECT *\n"
@@ -188,7 +230,7 @@ public class UsersDAO extends DBContext {
                 u.setGender(rs.getBoolean("gender"));
                 u.setDob(rs.getDate("dob"));
                 u.setPhone(rs.getString("phone"));
-                
+
                 return u;
             }
         } catch (SQLException ex) {
@@ -196,6 +238,7 @@ public class UsersDAO extends DBContext {
         }
         return null;
     }
+
     public static void main(String[] args) {
         System.out.println(new UsersDAO().get(1));
     }

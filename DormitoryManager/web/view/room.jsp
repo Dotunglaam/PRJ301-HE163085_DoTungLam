@@ -11,6 +11,35 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Room</title>
         <link href="css/room.css" rel="stylesheet" type="text/css"/>
+        <style>
+            table{
+                border-collapse: collapse
+            }
+            .content{
+                margin: auto;
+                width: 80%;
+                float: left;
+                margin-left: 30px;
+                height: auto
+            }
+            .pagination {
+                display: inline-block;
+            }
+            .pagination a {
+                color: black;
+                font-size: 22px;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+            .pagination a:hover:not(.active) {
+                background-color: chocolate;
+            }
+        </style>
         <script>
             function roomdelete(room_id)
             {
@@ -56,6 +85,12 @@
                 </c:forEach>
         </tbody>
         </table>
-        <a class="roomcreate" href="roomcreate">Create</a>
+        <a class="roomcreate" href="roomcreate">Create</a></br>
+        <c:set var="page" value="${requestScope.page}"/>
+        <div class="pagination">
+            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
+                <a class="${i==page?"active":""}" href="room?page=${i}">${i}</a> 
+            </c:forEach>
+        </div> 
     </body>
 </html>

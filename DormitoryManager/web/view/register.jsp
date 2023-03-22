@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -8,7 +9,6 @@
         <link href="css/register.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-
         <div>
             <h1>Tạo tài khoản mới</h1>
 
@@ -19,8 +19,16 @@
                     <input class="textbox" type="password" placeholder="Mật Khẩu" name="password" required=""/> <br/>
                     <input class="textbox" type="password" placeholder="Nhập lại mật khẩu" name="repassword" required><br>
                     <div class="gender">
-                        <input  type="radio" name="gender" value="female"/>Female
-                        <input  type="radio" name="gender" checked="checked" value="male"/>Male <br/>
+                        <input type="radio" name="gender" 
+                                <c:if test="${user.gender}">
+                                    checked="checked" 
+                                </c:if>
+                                value="male"/> Male 
+                        <input type="radio" name="gender"
+                                <c:if test="${!user.gender}">
+                                    checked="checked" 
+                                </c:if>
+                                value="female"/> Female <br/>
                     </div>
                     <input class="textbox" type="date" name="dob" required=""/> <br/>
                     <input class="textbox" type="number" placeholder="SDT" name="phone" required=""/> <br/>

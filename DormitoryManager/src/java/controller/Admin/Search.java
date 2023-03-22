@@ -60,7 +60,7 @@ public class Search extends HttpServlet {
         String txt = request.getParameter("txt");
         InforDAO i = new InforDAO();
         ArrayList<Informations> in = i.search(txt);
-        request.setAttribute("infor", in);
+        request.setAttribute("data", in);
         request.getRequestDispatcher("view/homeAdmin.jsp").forward(request, response);
     } 
 

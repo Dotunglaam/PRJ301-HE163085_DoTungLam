@@ -104,6 +104,10 @@
         <servlet-name>Search</servlet-name>
         <servlet-class>controller.Admin.Search</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateInforStudent</servlet-name>
+        <servlet-class>controller.Users.UpdateInforStudent</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -195,6 +199,10 @@
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
         <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateInforStudent</servlet-name>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

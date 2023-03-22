@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modol.Dormitories;
@@ -22,6 +23,15 @@ import modol.Users;
  * @author ADMIN
  */
 public class InforDAO extends DBContext {
+    public ArrayList<Informations> getListByPage(ArrayList<Informations> list,
+            int start,int end){
+        ArrayList<Informations> arr=new ArrayList<>();
+        for(int i=start;i<end;i++){
+            arr.add(list.get(i));
+        }
+        return arr;
+    }
+
 
     public ArrayList<Informations> getAllInfor() {
         ArrayList<Informations> infor = new ArrayList<>();

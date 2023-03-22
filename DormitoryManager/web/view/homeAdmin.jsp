@@ -12,6 +12,35 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Page</title>
         <link href="css/homeAdmin.css" rel="stylesheet" type="text/css"/>
+        <style>
+            table{
+                border-collapse: collapse
+            }
+            .content{
+                margin: auto;
+                width: 80%;
+                float: left;
+                margin-left: 30px;
+                height: auto
+            }
+            .pagination {
+                display: inline-block;
+            }
+            .pagination a {
+                color: black;
+                font-size: 22px;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+            .pagination a:hover:not(.active) {
+                background-color: chocolate;
+            }
+        </style>
         <script>
             function infordelete(in_id)
             {
@@ -25,8 +54,8 @@
     </head>
     <body>
         <div><jsp:include page="menu.jsp"></jsp:include></div>
-            
-        <table class="table" border="1">
+
+            <table class="table" border="1">
                 <thead>
                     <tr>
                         <th>IN_ID</th>
@@ -39,7 +68,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${infor}" var="i">
+                <c:forEach items="${data}" var="i">
                     <tr>
                         <td>${i.in_id}</td>
                         <td>${i.getUsers().full_name}</td>
@@ -53,8 +82,14 @@
                             <a href="#" onclick="infordelete(${i.in_id})">delete</a>
                         </td>
                     </tr>
-                    </c:forEach>
-                </tbody>
+                </c:forEach>
+            </tbody>
         </table>
+        <c:set var="page" value="${requestScope.page}"/>
+        <div class="pagination">
+            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
+                <a class="${i==page?"active":""}" href="homea?page=${i}">${i}</a> 
+            </c:forEach>
+        </div> 
     </body>
 </html>

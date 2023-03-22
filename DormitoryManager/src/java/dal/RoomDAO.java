@@ -19,7 +19,14 @@ import modol.Rooms;
  * @author ADMIN
  */
 public class RoomDAO extends DBContext {
-
+    public ArrayList<Rooms> getListByPage(ArrayList<Rooms> list,
+            int start,int end){
+        ArrayList<Rooms> arr=new ArrayList<>();
+        for(int i=start;i<end;i++){
+            arr.add(list.get(i));
+        }
+        return arr;
+    }
     public ArrayList<Rooms> getAllRooms() {
         ArrayList<Rooms> room = new ArrayList<>();
         try {
